@@ -30,16 +30,18 @@ public class Detalle {
 		@GenericGenerator(name="nativoDeBaseDeDatos", strategy="native")
 		private Integer id;
 		
+		@ManyToOne
+		@JoinColumn(name="factura_id", foreignKey=@ForeignKey(name="factura_detalle_id_fk"))
 		private Factura factura;
 		
-		@Transient
+		@Transient //ONETOONE BIDIRECCIONAL
 		private Producto producto;
 		
 		
 		@Type(type="integer")
 		private Integer cantidad;
 		
-		@Transient
+		@Transient //ONETOONE BIDIRECCIONAL
 		private Precio precioDeVenta;
 		
 		// constructores

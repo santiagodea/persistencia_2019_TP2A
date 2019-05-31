@@ -24,6 +24,18 @@ public class Proveedor {
 		@GenericGenerator(name="nativoDeBaseDeDatos", strategy="native")
 		private Integer id;
 		
+		@Column(length=255, nullable=false, unique=true)
+		@Type(type="string")
+		private String codigo; 
+		
+		public String getCodigo() {
+			return codigo;
+		}
+
+		public void setCodigo(String codigo) {
+			this.codigo = codigo;
+		}
+
 		@Column(length=255, nullable=false)
 		@Type(type="string")
 		private String descripcion;
