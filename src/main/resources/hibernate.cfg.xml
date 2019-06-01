@@ -18,7 +18,7 @@
 		<mapping class="model.Detalle" />
 		<mapping class="model.Precio" />
 		<mapping class="model.Producto" />
-		<mapping class="model.Provedor" />
+		<mapping class="model.Proveedor" />
 	
 	</session-factory>
 		

@@ -1,11 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -49,11 +43,11 @@ public class Detalle {
 			super();
 		}
 
-		public Detalle(Factura factura, Producto producto, Integer cantidad, Precio precio){
+		public Detalle(Factura factura, Producto producto, Integer cantidad){
 			this.factura = factura;
 			this.producto = producto;
 			this.cantidad = cantidad;
-			this.precioDeVenta = precio;
+			this.precioDeVenta = producto.getPrecio();
 		}
 
 		public Integer getId() {
