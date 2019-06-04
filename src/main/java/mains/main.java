@@ -27,33 +27,30 @@ public class main {
 		Proveedor proveedor2 = new Proveedor("PR2", "proveedorDePelotas");
 		Proveedor proveedor3 = new Proveedor("PR3", "proveedorDeCasacas");
 		
+		proveedor1.agregarProducto(producto1);
 		producto1.addProveedor(proveedor1);
-		proveedor1.addProducto(producto1);
+		
 		producto2.addProveedor(proveedor2);
-		proveedor2.addProducto(producto2);
+		proveedor2.agregarProducto(producto2);
+		
 		producto3.addProveedor(proveedor3);
-		proveedor3.addProducto(producto3);
+		proveedor3.agregarProducto(producto3);
 		
 		
 		Factura factura = new Factura(cliente, fecha, 001);
-		Detalle detalle1 = new Detalle(factura, producto1, 15);
-		Detalle detalle2 = new Detalle(factura, producto3, 11);
+		factura.agregarDetalle(producto1,15);
+		factura.agregarDetalle(producto3,11);
 		
 		
 		Factura factura2 = new Factura(cliente2, fecha, 002);
-		Detalle detalle3 = new Detalle(factura2, producto3, 7);
-		Detalle detalle4 = new Detalle(factura2, producto2, 5);
-		Detalle detalle5 = new Detalle(factura2, producto1, 9);
+		factura2.agregarDetalle(producto3,7);
+		factura2.agregarDetalle(producto2,5);
+		factura2.agregarDetalle(producto1,9);
 		
 		Factura factura3 = new Factura(cliente3, fecha, 003);
-		Detalle detalle6 = new Detalle(factura3, producto2, 2);
-		Detalle detalle7 = new Detalle(factura3, producto3, 3);
+		factura3.agregarDetalle(producto2,2);
+		factura3.agregarDetalle(producto3,3);
 
-
-		
-
-
-		
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -71,18 +68,9 @@ public class main {
 			session.persist(proveedor2);
 			session.persist(proveedor3);
 
-			session.persist(factura);
-			session.persist(detalle1);
-			session.persist(detalle2);
-			
-			session.persist(factura2);
-			session.persist(detalle3);
-			session.persist(detalle4);
-			session.persist(detalle5);
-			
+			session.persist(factura);		
+			session.persist(factura2);			
 			session.persist(factura3);
-			session.persist(detalle7);
-			session.persist(detalle6);
 
 
 			

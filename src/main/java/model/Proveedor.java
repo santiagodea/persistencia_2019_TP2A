@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,10 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
 
 @Entity(name = "Proveedor")
 @Table(name = "proveedor")
@@ -31,7 +32,7 @@ public class Proveedor {
 	@Type(type = "string")
 	private String descripcion;
 
-	@ManyToMany(mappedBy="productos")
+	@ManyToMany(mappedBy="proveedores")
 	private List<Producto> productos;
 
 	public Integer getId() {
@@ -45,6 +46,7 @@ public class Proveedor {
 	public Proveedor(String codigo, String descripcion) {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
+		this.productos = new ArrayList<Producto>();
 	}
 
 	public String getCodigo() {
@@ -75,8 +77,10 @@ public class Proveedor {
 		this.productos = productos;
 	}
 
-	public void addProducto(Producto producto) {
-		this.productos.add(producto);
+	
+	public void agregarProducto(Producto producto1) {
+		this.productos.add(producto1);
+		
 	}
 
 	@Override
@@ -103,5 +107,7 @@ public class Proveedor {
 			return false;
 		return true;
 	}
+
+
 
 }

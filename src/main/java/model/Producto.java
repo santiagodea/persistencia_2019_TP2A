@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -32,7 +33,7 @@ public class Producto {
 	@Type(type = "string")
 	private String descripcion;
 
-	@Transient
+	@OneToOne(mappedBy="producto", cascade=CascadeType.ALL)
 	private Precio precio;
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -46,6 +47,7 @@ public class Producto {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.precio = new Precio(monto, this);
+		this.proveedores = new ArrayList<Proveedor>();
 	}
 
 	public Integer getId() {

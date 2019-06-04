@@ -4,11 +4,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -29,7 +31,8 @@ public class Precio {
 	// @Type(type="date")
 	private LocalDate fecha;
 
-	@Transient
+	@OneToOne
+	@JoinColumn(name = "producto_id", foreignKey=@ForeignKey(name="precio_id_fk"))
 	private Producto producto;
 
 	public Precio() {

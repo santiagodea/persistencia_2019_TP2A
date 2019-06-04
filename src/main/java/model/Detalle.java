@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,14 +30,16 @@ public class Detalle {
 		@JoinColumn(name="factura_id", foreignKey=@ForeignKey(name="factura_detalle_id_fk"))
 		private Factura factura;
 		
-		@Transient //ONETOONE BIDIRECCIONAL
+		@OneToOne(cascade=CascadeType.ALL)
+		@JoinColumn(name = "precio_id")
 		private Producto producto;
 		
 		
 		@Type(type="integer")
 		private Integer cantidad;
 		
-		@Transient //ONETOONE BIDIRECCIONAL
+		@OneToOne(cascade=CascadeType.ALL)
+		@JoinColumn(name = "precioDeVenta_id")
 		private Precio precioDeVenta;
 		
 		// constructores

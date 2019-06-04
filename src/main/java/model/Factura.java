@@ -46,7 +46,6 @@ public class Factura {
 
 		
 		@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	    @JoinColumn(name = "factura_id")
 		private List<Detalle> detalles;
 		
 		public Factura() {
@@ -128,9 +127,8 @@ public class Factura {
 			this.detalles = detalles;
 		}
 		
-		public void agregarDetalle(Detalle unDetalle) {
-			this.detalles.add(unDetalle);
-			//unDetalle.setFactura(this); 
+		public void agregarDetalle(Producto producto, int cantidad) {
+			this.detalles.add(new Detalle(this, producto, cantidad));
 		}
 		
 
