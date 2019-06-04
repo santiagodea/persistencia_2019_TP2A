@@ -39,15 +39,25 @@ public class Producto {
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Proveedor> proveedores;
 
+	
 	public Producto() {
 		super();
 	}
 
-	public Producto(String codigo, String descripcion, Double monto) {
+	public Producto(String codigo, String descripcion,Proveedor proveedor, Double monto) {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.precio = new Precio(monto, this);
 		this.proveedores = new ArrayList<Proveedor>();
+		this.addProveedor(proveedor);
+	}
+
+	public Producto(String codigo, String descripcion, Proveedor proveedor) {
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.precio = null;
+		this.proveedores = new ArrayList<Proveedor>();
+		this.addProveedor(proveedor);
 	}
 
 	public Integer getId() {
@@ -92,6 +102,7 @@ public class Producto {
 
 	public void addProveedor(Proveedor proveedor) {
 		this.proveedores.add(proveedor);
+		proveedor.agregarProducto(this);
 	}
 
 	@Override
@@ -117,6 +128,17 @@ public class Producto {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public void cargarPrecio(double monto) {
+		if(this.getPrecio() != null){
+			this.precio.darDeBajarPrecio();
+			this.setPrecio(new Precio(monto, this));
+		}
+		else{
+			System.out.println(this.getPrecio());
+			this.setPrecio(new Precio(monto, this));
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Console;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -27,9 +28,12 @@ public class Precio {
 	//@Type(type = "double")
 	private Double monto;
 
-	@Column(nullable = false)
+		
 	// @Type(type="date")
-	private LocalDate fecha;
+	private LocalDate fechaAlta;
+	
+	// @Type(type="date")
+	private LocalDate fechaBaja;
 
 	@OneToOne
 	@JoinColumn(name = "producto_id", foreignKey=@ForeignKey(name="precio_id_fk"))
@@ -41,8 +45,9 @@ public class Precio {
 
 	public Precio(Double monto, Producto producto) {
 		this.monto = monto;
-		this.fecha = LocalDate.now();
+		this.fechaAlta = LocalDate.now();
 		this.producto = producto;
+		this.fechaBaja = null; // SI UN PRECIO TIENE CARGADA SU FECHA DE BAJA SIGNIFICA QUE NO ESTA VIGENTE... (HISTORICO)
 	}
 
 	public Integer getId() {
@@ -61,12 +66,20 @@ public class Precio {
 		this.monto = monto;
 	}
 
-	public LocalDate getFecha() {
-		return fecha;
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
 	}
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public LocalDate getFechaBaja() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(LocalDate fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
 
 	public Producto getProducto() {
@@ -102,4 +115,7 @@ public class Precio {
 		return true;
 	}
 
+	public void darDeBajarPrecio(){
+		this.fechaBaja = LocalDate.now();
+	}
 }

@@ -6,7 +6,6 @@ import org.hibernate.Session;
 
 import hibernate.HibernateUtil;
 import model.Cliente;
-import model.Detalle;
 import model.Factura;
 import model.Producto;
 import model.Proveedor;
@@ -19,23 +18,19 @@ public class main {
 		Cliente cliente2 = new Cliente("B", "Martinez", "Pity", "AA002");
 		Cliente cliente3 = new Cliente("C","Ponzio", "Leon", "AA003");
 
-		Producto producto1 = new Producto("P1","botin",760.00);
-		Producto producto2 = new Producto("P2","pelota",980.50);
-		Producto producto3 = new Producto("P3","camiseta",1250.99);
-
 		Proveedor proveedor1 = new Proveedor("PR1", "proveedorDeBotines");
 		Proveedor proveedor2 = new Proveedor("PR2", "proveedorDePelotas");
 		Proveedor proveedor3 = new Proveedor("PR3", "proveedorDeCasacas");
+		Proveedor proveedor4 = new Proveedor("PR4", "proveedorDeCasacasSuplentes");
 		
-		proveedor1.agregarProducto(producto1);
-		producto1.addProveedor(proveedor1);
+		Producto producto1 = new Producto("P1","botin",proveedor1);
+		Producto producto2 = new Producto("P2","pelota",proveedor2,980.50);
+		Producto producto3 = new Producto("P3","camiseta",proveedor3,1250.99);
 		
-		producto2.addProveedor(proveedor2);
-		proveedor2.agregarProducto(producto2);
+		producto3.addProveedor(proveedor4);
 		
-		producto3.addProveedor(proveedor3);
-		proveedor3.agregarProducto(producto3);
-		
+		producto1.cargarPrecio(150.82);
+		producto2.cargarPrecio(1050.00);
 		
 		Factura factura = new Factura(cliente, fecha, 001);
 		factura.agregarDetalle(producto1,15);
