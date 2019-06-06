@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -32,13 +34,14 @@ public class Producto {
 	@Column(length = 255, nullable = false)
 	@Type(type = "string")
 	private String descripcion;
-
-	@OneToOne(mappedBy="producto", cascade=CascadeType.ALL)
+	
+	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="precio_id", foreignKey=@ForeignKey(name="fk_producto_precio_id"))
 	private Precio precio;
 
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private List<Proveedor> proveedores;
-
 	
 	public Producto() {
 		super();
@@ -130,15 +133,12 @@ public class Producto {
 		return true;
 	}
 
-	public void cargarPrecio(double monto) {
-		if(this.getPrecio() != null){
-			this.precio.darDeBajarPrecio();
-			this.setPrecio(new Precio(monto, this));
-		}
-		else{
-			System.out.println(this.getPrecio());
-			this.setPrecio(new Precio(monto, this));
-		}
+	public void actualizarPrecio(double monto) {
+		
+		Precio nuevoPrecio = new Precio(monto, this);
+		
+		this.setPrecio(nuevoPrecio);
+		
 	}
 
 }

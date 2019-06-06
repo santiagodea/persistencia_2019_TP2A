@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Console;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -10,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,12 +30,11 @@ public class Precio {
 		
 	// @Type(type="date")
 	private LocalDate fechaAlta;
-	
-	// @Type(type="date")
-	private LocalDate fechaBaja;
 
-	@OneToOne
-	@JoinColumn(name = "producto_id", foreignKey=@ForeignKey(name="precio_id_fk"))
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "producto_id", foreignKey=@ForeignKey(name="precio_producto_id_fk"))
 	private Producto producto;
 
 	public Precio() {
@@ -47,7 +45,6 @@ public class Precio {
 		this.monto = monto;
 		this.fechaAlta = LocalDate.now();
 		this.producto = producto;
-		this.fechaBaja = null; // SI UN PRECIO TIENE CARGADA SU FECHA DE BAJA SIGNIFICA QUE NO ESTA VIGENTE... (HISTORICO)
 	}
 
 	public Integer getId() {
@@ -72,14 +69,6 @@ public class Precio {
 
 	public void setFechaAlta(LocalDate fechaAlta) {
 		this.fechaAlta = fechaAlta;
-	}
-
-	public LocalDate getFechaBaja() {
-		return fechaBaja;
-	}
-
-	public void setFechaBaja(LocalDate fechaBaja) {
-		this.fechaBaja = fechaBaja;
 	}
 
 	public Producto getProducto() {
@@ -113,9 +102,5 @@ public class Precio {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public void darDeBajarPrecio(){
-		this.fechaBaja = LocalDate.now();
 	}
 }

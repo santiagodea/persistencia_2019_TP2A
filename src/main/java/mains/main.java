@@ -29,8 +29,8 @@ public class main {
 		
 		producto3.addProveedor(proveedor4);
 		
-		producto1.cargarPrecio(150.82);
-		producto2.cargarPrecio(1050.00);
+		producto1.actualizarPrecio(150.82);
+		producto2.actualizarPrecio(1050.00);
 		
 		Factura factura = new Factura(cliente, fecha, 001);
 		factura.agregarDetalle(producto1,15);
