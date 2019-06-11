@@ -24,17 +24,14 @@ public class Precio {
 	private Integer id;
 
 	@Column(nullable = false, unique = true)
-	//@Type(type = "double")
+	// @Type(type = "double")
 	private Double monto;
 
-		
 	// @Type(type="date")
 	private LocalDate fechaAlta;
 
-	
-	
 	@ManyToOne
-	@JoinColumn(name = "producto_id", foreignKey=@ForeignKey(name="precio_producto_id_fk"))
+	@JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "precio_producto_id_fk"))
 	private Producto producto;
 
 	public Precio() {

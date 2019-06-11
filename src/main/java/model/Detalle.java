@@ -14,108 +14,106 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-
-@Entity(name="Detalle")
-@Table(name="detalle")
+@Entity(name = "Detalle")
+@Table(name = "detalle")
 public class Detalle {
 
 	// atributos
-		@Id
-		@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
-		@GenericGenerator(name="nativoDeBaseDeDatos", strategy="native")
-		private Integer id;
-		
-		@ManyToOne
-		@JoinColumn(name="factura_id", foreignKey=@ForeignKey(name="factura_detalle_id_fk"))
-		private Factura factura;
-		
-		@OneToOne(cascade=CascadeType.ALL)
-		@JoinColumn(name = "precio_id")
-		private Producto producto;
-		
-		
-		@Type(type="integer")
-		private Integer cantidad;
-		
-		@OneToOne(cascade=CascadeType.ALL)
-		@JoinColumn(name = "precioDeVenta_id")
-		private Precio precioDeVenta;
-		
-		// constructores
-		public Detalle() {
-			super();
-		}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "nativoDeBaseDeDatos")
+	@GenericGenerator(name = "nativoDeBaseDeDatos", strategy = "native")
+	private Integer id;
 
-		public Detalle(Factura factura, Producto producto, Integer cantidad){
-			this.factura = factura;
-			this.producto = producto;
-			this.cantidad = cantidad;
-			this.precioDeVenta = producto.getPrecio();
-		}
+	@ManyToOne
+	@JoinColumn(name = "factura_id", foreignKey = @ForeignKey(name = "factura_detalle_id_fk"))
+	private Factura factura;
 
-		public Integer getId() {
-			return id;
-		}
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "precio_id")
+	private Producto producto;
 
-		public void setId(Integer id) {
-			this.id = id;
-		}
+	@Type(type = "integer")
+	private Integer cantidad;
 
-		public Factura getFactura() {
-			return factura;
-		}
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "precioDeVenta_id")
+	private Precio precioDeVenta;
 
-		public void setFactura(Factura factura) {
-			this.factura = factura;
-		}
+	// constructores
+	public Detalle() {
+		super();
+	}
 
-		public Producto getProducto() {
-			return producto;
-		}
+	public Detalle(Factura factura, Producto producto, Integer cantidad) {
+		this.factura = factura;
+		this.producto = producto;
+		this.cantidad = cantidad;
+		this.precioDeVenta = producto.getPrecio();
+	}
 
-		public void setProducto(Producto producto) {
-			this.producto = producto;
-		}
+	public Integer getId() {
+		return id;
+	}
 
-		public Integer getCantidad() {
-			return cantidad;
-		}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-		public void setCantidad(Integer cantidad) {
-			this.cantidad = cantidad;
-		}
+	public Factura getFactura() {
+		return factura;
+	}
 
-		public Precio getPrecioDeVenta() {
-			return precioDeVenta;
-		}
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
 
-		public void setPrecio(Precio precio) {
-			this.precioDeVenta = precio;
-		}
+	public Producto getProducto() {
+		return producto;
+	}
 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((id == null) ? 0 : id.hashCode());
-			return result;
-		}
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (!(obj instanceof Detalle))
-				return false;
-			Detalle other = (Detalle) obj;
-			if (id == null) {
-				if (other.id != null)
-					return false;
-			} else if (!id.equals(other.id))
-				return false;
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public Precio getPrecioDeVenta() {
+		return precioDeVenta;
+	}
+
+	public void setPrecio(Precio precio) {
+		this.precioDeVenta = precio;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Detalle))
+			return false;
+		Detalle other = (Detalle) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }

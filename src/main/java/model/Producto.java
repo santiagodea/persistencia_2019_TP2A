@@ -10,6 +10,8 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -20,7 +22,8 @@ import org.hibernate.annotations.Type;
 
 @Entity(name = "Producto")
 @Table(name = "producto")
-public class Producto {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Producto {
 	// ATRIBUTOS
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "nativoDeBaseDeDatos")
@@ -34,20 +37,19 @@ public class Producto {
 	@Column(length = 255, nullable = false)
 	@Type(type = "string")
 	private String descripcion;
-	
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="precio_id", foreignKey=@ForeignKey(name="fk_producto_precio_id"))
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "precio_id", foreignKey = @ForeignKey(name = "fk_producto_precio_id"))
 	private Precio precio;
 
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Proveedor> proveedores;
-	
+
 	public Producto() {
 		super();
 	}
 
-	public Producto(String codigo, String descripcion,Proveedor proveedor, Double monto) {
+	public Producto(String codigo, String descripcion, Proveedor proveedor, Double monto) {
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.precio = new Precio(monto, this);
@@ -134,11 +136,10 @@ public class Producto {
 	}
 
 	public void actualizarPrecio(double monto) {
-		
 		Precio nuevoPrecio = new Precio(monto, this);
-		
 		this.setPrecio(nuevoPrecio);
-		
 	}
-
+	
+	public abstract Double getPrecioFinal();
+	
 }

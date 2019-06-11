@@ -14,11 +14,16 @@
 		<mapping class="model.Cliente" />
 		<mapping class="model.Cuenta" />
 		<mapping class="model.Factura" />
-		
 		<mapping class="model.Detalle" />
 		<mapping class="model.Precio" />
-		<mapping class="model.Producto" />
 		<mapping class="model.Proveedor" />
+		
+		<mapping class="model.Producto" />
+		<mapping class="model.Alimento" />
+		<mapping class="model.General" />
+		<mapping class="model.Frio" />
+		<mapping class="model.Congelado" />
+		<mapping class="model.Gondola" />
 	
 	</session-factory>
 		

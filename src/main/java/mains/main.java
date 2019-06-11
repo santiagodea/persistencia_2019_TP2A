@@ -6,7 +6,11 @@ import org.hibernate.Session;
 
 import hibernate.HibernateUtil;
 import model.Cliente;
+import model.Congelado;
 import model.Factura;
+import model.Frio;
+import model.General;
+import model.Gondola;
 import model.Producto;
 import model.Proveedor;
 
@@ -22,10 +26,24 @@ public class main {
 		Proveedor proveedor2 = new Proveedor("PR2", "proveedorDePelotas");
 		Proveedor proveedor3 = new Proveedor("PR3", "proveedorDeCasacas");
 		Proveedor proveedor4 = new Proveedor("PR4", "proveedorDeCasacasSuplentes");
+		Proveedor proveedor5 = new Proveedor("PR5", "proveedorDeFrios");
+		Proveedor proveedor6 = new Proveedor("PR6", "proveedorDeCongelados");
+		Proveedor proveedor7 = new Proveedor("PR7", "proveedorDeGondolas");
 		
-		Producto producto1 = new Producto("P1","botin",proveedor1);
-		Producto producto2 = new Producto("P2","pelota",proveedor2,980.50);
-		Producto producto3 = new Producto("P3","camiseta",proveedor3,1250.99);
+		Producto producto1 = new General("P1","botin",proveedor1,150);
+		
+		Producto producto2 = new General("P2","pelota",proveedor2,350);
+		producto1.actualizarPrecio(980.50);
+		Producto producto3 = new General("P3","camiseta",proveedor3,100);
+		producto1.actualizarPrecio(1250.99);
+		
+		Producto producto4 = new Frio("P4","sanguche",proveedor5, 0, 15, LocalDate.now());
+		producto1.actualizarPrecio(150);
+		Producto producto5 = new Congelado("P5","energizante",proveedor6, LocalDate.now());
+		producto1.actualizarPrecio(200.50);
+		Producto producto6 = new Gondola("P6","agua",proveedor7,300.00, LocalDate.now());
+		producto1.actualizarPrecio(75.80);
+
 		
 		producto3.addProveedor(proveedor4);
 		
@@ -45,6 +63,9 @@ public class main {
 		Factura factura3 = new Factura(cliente3, fecha, 003);
 		factura3.agregarDetalle(producto2,2);
 		factura3.agregarDetalle(producto3,3);
+		factura3.agregarDetalle(producto4,10);
+		factura3.agregarDetalle(producto5,20);
+		factura3.agregarDetalle(producto6,30);
 
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -67,8 +88,6 @@ public class main {
 			session.persist(factura2);			
 			session.persist(factura3);
 
-
-			
 
 			session.getTransaction().commit();
 		} catch (Exception e) {

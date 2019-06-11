@@ -1,4 +1,5 @@
 package model;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -12,25 +13,24 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-
-@Entity(name="Cuenta")
-@Table(name="cuenta")
+@Entity(name = "Cuenta")
+@Table(name = "cuenta")
 public class Cuenta {
 
-	//ATRIBUTOS
+	// ATRIBUTOS
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
-	@GenericGenerator(name="nativoDeBaseDeDatos", strategy="native")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "nativoDeBaseDeDatos")
+	@GenericGenerator(name = "nativoDeBaseDeDatos", strategy = "native")
 	private Integer id;
-	
-	@Column(length=255, nullable=false, unique=true)
-	@Type(type="string")
+
+	@Column(length = 255, nullable = false, unique = true)
+	@Type(type = "string")
 	private String numero;
-	
+
 	@OneToOne
-	@JoinColumn(name = "cliente_id", foreignKey=@ForeignKey(name="cuenta_id_fk"))
+	@JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "cuenta_id_fk"))
 	private Cliente cliente;
-	
+
 	// constructores
 	public Cuenta() {
 		super();
@@ -90,6 +90,5 @@ public class Cuenta {
 			return false;
 		return true;
 	}
-
 
 }

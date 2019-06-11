@@ -17,35 +17,34 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-
-@Entity(name="Cliente")
-@Table(name="cliente")
+@Entity(name = "Cliente")
+@Table(name = "cliente")
 public class Cliente {
 	// atributos
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="nativoDeBaseDeDatos")
-	@GenericGenerator(name="nativoDeBaseDeDatos", strategy="native")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "nativoDeBaseDeDatos")
+	@GenericGenerator(name = "nativoDeBaseDeDatos", strategy = "native")
 	private Integer id;
-	
-	@Column(length=255, nullable=false, unique=true)
-	@Type(type="string")
+
+	@Column(length = 255, nullable = false, unique = true)
+	@Type(type = "string")
 	private String codigo;
-	
-	@Column(length=255, nullable=false)
-	@Type(type="string")
+
+	@Column(length = 255, nullable = false)
+	@Type(type = "string")
 	private String apellido;
-	
-	@Column(length=255, nullable=false)
-	@Type(type="string")
+
+	@Column(length = 255, nullable = false)
+	@Type(type = "string")
 	private String nombre;
-	
-	@OneToOne(mappedBy="cliente", cascade=CascadeType.ALL)
+
+	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private Cuenta cuenta;
-	
-	@OneToMany(mappedBy = "cliente", orphanRemoval=true, fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy = "cliente", orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Factura> facturas;
 
-		// constructores
+	// constructores
 	public Cliente() {
 		super();
 	}
@@ -106,17 +105,13 @@ public class Cliente {
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
-	
+
 	// metodos obligatorios
 
-		
-
-//metodos de la clase
-public void agregarFactura(Factura factura) {
-	this.facturas.add(factura);
-	factura.setCliente(this); //AGREGAR EN LA FACTURA EL CLIENTE;
-}
-
-
+	// metodos de la clase
+	public void agregarFactura(Factura factura) {
+		this.facturas.add(factura);
+		factura.setCliente(this); // AGREGAR EN LA FACTURA EL CLIENTE;
+	}
 
 }

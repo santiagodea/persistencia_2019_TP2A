@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-
 @Entity(name = "Proveedor")
 @Table(name = "proveedor")
 public class Proveedor {
@@ -32,7 +31,7 @@ public class Proveedor {
 	@Type(type = "string")
 	private String descripcion;
 
-	@ManyToMany(mappedBy="proveedores")
+	@ManyToMany(mappedBy = "proveedores")
 	private List<Producto> productos;
 
 	public Integer getId() {
@@ -77,10 +76,9 @@ public class Proveedor {
 		this.productos = productos;
 	}
 
-	
 	public void agregarProducto(Producto producto1) {
 		this.productos.add(producto1);
-		
+
 	}
 
 	@Override
@@ -107,7 +105,5 @@ public class Proveedor {
 			return false;
 		return true;
 	}
-
-
 
 }
