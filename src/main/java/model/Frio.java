@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.annotations.Type;

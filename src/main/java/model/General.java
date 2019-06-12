@@ -1,6 +1,5 @@
 package model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.annotations.Type;
@@ -42,7 +41,7 @@ public class General extends Producto {
 			return this.getPrecio().getMonto() * 1.07;
 		}
 		else if (this.getPeso() > 7){
-			return this.getPrecio().getMonto() * 1.07;
+			return (this.getPrecio().getMonto() * 1.12);
 		}
 		else {
 			return this.getPrecio().getMonto();
